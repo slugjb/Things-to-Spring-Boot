@@ -39,7 +39,33 @@
   body의 타입은 Content-Type 헤더에 따라 결정 된다.
 
 ## PathVariables
-## @RequestBody 와 @RequestParam
+  RUL 경로에 변수를 넣어주는 것!!
+  
+  * @RequestMapping의 URL 정의 부분과 Method내의 Parameter 부분에 정의를 하여 사용이 가능하다.
+  * @RequestMapping 어노테이션 갑으로 {템플릿 변수}를 사용한다.
+  * @PathVariable 어노테이션을 이용해서 {템플릿 변수}와 동일한 이름을 갖는 파라미터를 추가한다.
+`@RequestMapping(value = "/user/email/{email}", method=RequestMethod.GET)
+이러한 형식일때 아래와 같이 바꿔주면 값이 제대로 들어온다.
+```
+@RequestMapping(value = "user/email/{email:.+}", method = RequestMethod.GET)
+public ModelAndView getUserByEmail(@PathVariable("email") String email) {}
+```
+  ※ 주의 : null이나 공백값이 들어가는 parameter라면 적용하지 말것!
+           Spring에서 @PathVariable를 사용하여 값을 넘겨받을 때에 . 이 포함되어 있으면,
+           .을 포함하여 뒤가 잘려서 들어온다.
+
+## @RequestParam
+
+
+RequestParam
+http://192.168.0.1:8080?aaa=bbb&ccc=ddd
+PathVariable
+http://192.168.0.1:8080/bbb/ddd
+
+## @RequestBody 
+
+
+
 ## Spring Boot Application
 ## Autowired
 ## RequiredArgsConstructor
