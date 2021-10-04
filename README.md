@@ -66,4 +66,4 @@ http header를 사용해서 appcation이 다른 origin의 resources에 접근 �
   * slf4j
       > log4j, logback, commons-logging 같은 로깅 프레임워크를 위한 추상화를 제공해준다.
 
-  
+  ***
