@@ -38,6 +38,8 @@
   
   body의 타입은 Content-Type 헤더에 따라 결정 된다.
 
+
+
 ## PathVariables
   RUL 경로에 변수를 넣어주는 것!!
   
@@ -65,6 +67,8 @@ public String view(@PathVariable("id") int id) {
  > 파라미터의 타입은 URL 의 내용이 적절히 변환될 수 있는 것을 사용해야 한다. int 타입을 썻을 경우에는
  > 반드시 해당 패스 변수 자리에 숫자 값이 들어 있어야 한다. 타입이 일치하지 않는 값이 들어 올 경우
  > 별 다른 예외처리를 해주지 않는 다면 HTTP 400 - Bad Request 응답코드가 전달된다.
+
+
 
 
 ## @RequestParam
@@ -127,6 +131,8 @@ http://192.168.0.1:8080?aaa=bbb&ccc=ddd
 PathVariable
 http://192.168.0.1:8080/bbb/ddd
 
+
+
 ## ModelAttribute
    > 클라이언트가 전송하는 multipart/form-data 형태의 HTTP Body 내용과 HTTP 파라미터들을 Setter를 통해
    > 1대1로 객체에 바인딩하기 위해 사용된다. @ModelAttribute에는 매핑시키는 파라미터의 타입이 객체의 타입과
@@ -141,6 +147,8 @@ http://192.168.0.1:8080/bbb/ddd
   > {writer:'slug', contents: 'hi i'm slug'}의 형태로 데이터를 전송했다고 하면, 컨트롤러에서는
   > @ModelAttribute('writer') String writer의 형태를 활용하여 writer 변수의 'slug' 만을 바인딩시켜 받아올 수 있다
 
+   
+   
    
 
 ## @RequestBody / @ResponseBody
@@ -193,6 +201,8 @@ http://192.168.0.1:8080/bbb/ddd
 >@ResponseBody 가 붙은 파라미터에는 HTTP 요청의 분문 body 부분이 그대로 전달된다.
 >RequestMappingHandlerAdpter 에는 HttpMessageConverter 타입의 메세지 변환기가 여러개 등록되어 있다.
 
+
+
 ## Autowired `보충필요`
   필요한 의존 객체의 타입에 해당하는 빈을 찾아 주입한다.
   
@@ -201,6 +211,7 @@ http://192.168.0.1:8080/bbb/ddd
    * 필드
   
   Autowired는 기본값이 ture이기 때문에 의존성 주입을 해야할 대상을 찾이 못한다면 애플리케이션 구동에 실패한다.
+  
   
  ### Constructor Dependency Injection
    생성자 주입은 생성자에 의존성 주입을 받고자 하는 field를 나열하는 방법으로,
@@ -218,6 +229,7 @@ http://192.168.0.1:8080/bbb/ddd
      * 어쩔 수 없는 순환 참조는 생성자 주입으로 해결하기 여러움
         이러한 경우에는 다른 주입 방법을 사용한다.
         가급적이면 순환 참조가 발생하지 않도록 하는 것이 중요하다.
+
 
  ### Field Dependency Injection
    member field에 @Autowired annotation을 선언하여 주입받는 방법이다.
@@ -251,8 +263,19 @@ http://192.168.0.1:8080/bbb/ddd
 
 ## Spring Boot Application
 
+
+
+
 ## RequiredArgsConstructor
+
+
+
+
 ## POM -> Gradle
+
+
+
+
 ***
 # 보충 필요, 매우 중요 (정리 및 공부)
 ***
