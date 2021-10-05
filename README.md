@@ -4,9 +4,9 @@
 
 특정 url로 요청하면 controller에서 어떠한 방식으로 처리할지 정의하는데,
 
-이때 들어온 요청을 특정 method와 mapping하기 위해 사용
+이때 들어온 요청을 특정 method와 mapping하기 위해 사용하며
 
-함과 동시에 다른 origin에서 내 resources에 함수로 접근하지 못하게 하기 위해 사용된다.
+동시에 다른 origin에서 내 resources에 함수로 접근하지 못하게 하기 위해 사용된다.
 
 * GET
   * 캐시 가능
