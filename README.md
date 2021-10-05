@@ -53,6 +53,19 @@ public ModelAndView getUserByEmail(@PathVariable("email") String email) {}
   ※ 주의 : null이나 공백값이 들어가는 parameter라면 적용하지 말것!
            Spring에서 @PathVariable를 사용하여 값을 넘겨받을 때에 . 이 포함되어 있으면,
            .을 포함하여 뒤가 잘려서 들어온다.
+           
+ ```
+ @RequestMapping("/user/view/{id}")
+public String view(@PathVariable("id") int id) {
+    ...
+}
+```
+ > URL의 중괄호({}) 에는 패스 변수를 넣는다. 이 이름을 @PathVariable 애노테이션의 값으로 넣어서 메소드
+ > 파라미터에 부여해 주면 된다. /user/view/10 이라는 URL 이라면, id 파라미터에 10이라는 값이 들어온다.
+ > 파라미터의 타입은 URL 의 내용이 적절히 변환될 수 있는 것을 사용해야 한다. int 타입을 썻을 경우에는
+ > 반드시 해당 패스 변수 자리에 숫자 값이 들어 있어야 한다. 타입이 일치하지 않는 값이 들어 올 경우
+ > 별 다른 예외처리를 해주지 않는 다면 HTTP 400 - Bad Request 응답코드가 전달된다.
+
 
 ## @RequestParam
   > 1개의 요청 파라미터를 받기 위해서 사용한다. @RequestParam은 필수 여부가 true이기 때문에, 기본적으로
@@ -60,6 +73,54 @@ public ModelAndView getUserByEmail(@PathVariable("email") String email) {}
   > 그렇기 때문에 반드시 필요한 변수가 아니라면 required의 값을 false로 설정가능하며, 해당 Parameter를
   > 사용하지 않고 요청을 보낼 경우에 default로 받을 값을 defaultValue 옵션을 통해 설정할 수도 있다.
 
+  * 가져올 요청 파라미터의 이름을 @RequestParam 어노테애션의 기본 값으로 지정해주면 된다.
+  * 요청 파라미터의 값은 메소드 파라미터의 타입에 따라 적절히 변환 된다.
+
+```
+public String method1(@RequestParam("id") int id) { ... }
+ 
+public String method2(@RequestParam("id") int id,
+        @RequestParam("name") String name,
+        @RequestParam("file") MultipartFile file) { ... }
+ 
+public String method3(@RequestParam Map<String, String> params) { ... }
+ 
+public String method4(
+        @RequestParam(value="id", required=false, defaultValue="-1") int id) { ... }
+ 
+public String method5(@RequestParam int id) { ... }
+
+```
+ * method1() 의 선언은 id 요청 파라미터를 int 타입으로 변환해서 메소드의 id 파라미터에 넣어준다.
+
+ * @RequestParam 은 method2() 와 같이 하나 이상의 파라미터에 적용할 수 있다.
+ * 
+    스프링의 내장 변환기가 다룰 수 있는 모든 타입을 지원한다.
+    
+ * method3() 과 같이 @RequestParam 에 파라미터 이름을 지정하지 않고 Map<String, String> 타입으로
+ 
+    선언하면 모든 요청 파라미터를 담은 맵으로 받을 수 있다. 파라미터 이름은 맵의 키에, 값은 맵의 값에 담겨 전달된다.
+    
+ * @RequestParam 을 사용했다면 해당 파라미터가 반드시 있어야 한다. 없다면 HTTP 400 - Bad Request 가 발생한다.
+  
+  파라미터가 필수가 아니라 선택적으로 제공하게 하려면, required 엘리먼트를 false 로 설정해 주면 된다.
+  
+  요청 파라미터가 존재하지 않을 때 사용할 디폴트 값도 지정할 수 있다.
+  
+  method4() 는 required 와 defaultValue 엘리먼트를 설정한 예시이다.
+
+ * method5() 는 메소드 파라미터의 이름과 요청 파라미터의 이름이 일치하기 때문에 @RequestParam 의 이름 엘리먼트를 생략한 예시이다.
+
+ * String, int 와 같은 단순 타입인 경우는 @RequestParam 을 아예 생략할 수도 있다.
+  
+  이때는 메소드 파라미터와 같은 이름의 요청 파라미터 값을 받는다. 하지만 파라미터의 개수가 많고
+  
+  종류가 다양해지면 코드를 이해하는 데 불편할 수도 있다. 단순한 메소드가 아니라면 명시적으로
+  
+  @RequestParam 을 부여해 주는 것을 권장한다.
+
+***
+* URL 
 
 RequestParam
 http://192.168.0.1:8080?aaa=bbb&ccc=ddd
