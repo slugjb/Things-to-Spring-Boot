@@ -313,8 +313,123 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
    > artifactId는 프로젝트의 각 기능들이다
    > 예를 들어 지하철 관련 프로젝트르르 개발한다고 한다면,
    > groupId는 지하철 노선 전체를 뜻하고, artifactId은 1호선, 2호선 등을 말한다
+   
+```
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.mycompany.app</groupId>
+   <artifactId>my-app</artifactId>
+   <version>1</version>
+   <properties>
+   </properties>
+   
+   <dependencies>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <type>jar</type>
+      <scope>test</scope>
+      <optional>true</optional>
+   </dependencies>
+   
+   <build>
+      <plgins>
+      </plgins>   
+   </build>
+   
+   <distributionManagement>
+      <repository>
+  		     <id>nexus</id>
+         <name>nexus-release</name>
+         <url>${nexus.uri}/content/repository/release</url>
+      </repository>
+   </distributionManagement>
+   
+   <profiles>
+   
+   </profiles>
+   
+</project>
+```
+   * properties(선택사항)
+    > pom.xml 내에서 자주 사용되는 정보를 변수처러 만들어서 사용할 수 있다.
+    > 같은 내용을 여러번 쓰는 경우에도 이렇게 사용할 수 있지만, 프로젝트
+    > 설정의 중요한 사항에 대해 따로 정의하여 보기 쉽게 정리하려는 목적도 있다.
+
+   * dependencies(필수사항)
+    > pom.xml의 핵심이라고 볼 수 있는 의존성을 정의하는 부분으로,
+    > 라이브러리를 불러오는 부분이다.
+    > maven을 통해 불러온 라이브러리들은 Java Build Path에서 Maven Dependencies
+    > 하위 목록으로 들어가며 별도 설정이 불가하고, pom.xml을 통해서만
+    > 추가/삭제/버전 변경 등이 가능하다.
+    > 해당 경로에 추가된 라이브러리가 필요한 다른 라이브러리들이 있다면
+    > 해당 라이브러리까지 참조해서 불러들이는 기능이 있으며, 이 기능을
+    > `의존성 전이` 라고 한다.
+
+### dependencies 하위 필드
+
+   * type
+      * 해당 프로젝트로 불러들일 의존성 라이브러리의 유형. 기본값은 jar이다.
+      * 미 설정시 jar파일로 불러들인다.
+   * scope
+      * 해당 라이브러리가 적용될 범위를 지정할 수 있다. 사용 가능한 범위는 5개가 있다.
+
+         * compile(default)
+            * 아무것도 지정하지 않았을 경우 설정되는 기본값.
+            * 모든 클래스 경로에서 사용할 수 있꼬, 컴파일 및 배포시 같이 제공된다.
+            * 해당 프로젝트에 종속된 다른 프로젝트에도 적용될 수 있다.
+         * provide
+            * compile과 유사하나, JDK 혹은 컨테이너가 런타임 시에만 해당 라이브러리를 제공한다.
+            * 컴파일 혹은 테스트 경로에서만 사용 가능하며, 배포 시에는 빠지게 된다.
+         * runtime
+            * 컴파일 시에는 사용되지 않고, 실행될 때에만 사용된다.
+            * 런타임과 테스트 경로에서는 존재하지만, 컴파일 클래스 경로에는 존재하지 않는다.
+         * test
+            * 해당 scope를 사용하는 경우는, 테스트 시에만 해당 라이브러리를 사용하겠다는 의미이다.
+            * 응용 프로그램의 정상적인 사용 시에는 필요 없다는 의미로, 테스트 컴파일과
+            
+              실행 단계에서만 사용하며, 종속 된 다른 프로젝트에는 영향을 미치지 않는다.
+              
+         * system
+           * provided와 유사하나, 저장소에서 관리되지 않고, 직접 관리하는 JAR를 추가한다.
+           * 해당 범위에 있는 라이브러리는 artifact 단위에서는 항상 사용할 수 있으나,
+
+             repository에 존재하지 않는다. 해당 범위를 사용하는 경우에는 dependency 설정에
+             
+             systemPath를 추가해서 작성해야 한다.
+             
+             (어느 경로에 JAR 파일을 둬야 하는지 지정해줘야하 한다.
+             
+             ${java.home}/lib 등과 같이 기술한다.
+             
+   * optional
+      * 해당 프로젝트가 다른 프로젝트에 의존성을 가진 경우에 사용할지 여부를 선택해준다.
+      * A프로젝트에서 B프로젝트를 참조하여 사용한다고 했을 때 B에서 의존성으로 포함한
+      * 
+         dependency의 optional을 true로 주면, A 프로젝트에서는 해당 라이브러리를 참조하지 않는다.
+
+     
+   
+   * build(필수사항)
+      * 빌드할 때 사용할 플러그인 목록을 기재한다.
 
 
+   * distributionManagement(선택사항)
+      * artifact가 배포될 repository 정보와 설정을 한다.
+      * 대체적으로 가상화 등 망분리 환경에서 외부 인터넷 연결이 불가할 때나 내부용
+       
+         repository를 별도로 두어 사용하고자 할 때 쓴다.
+         
+         
+   * profiles(선택사항)
+      > 여러 개의 profile을 가질 수 있꼬, 각각 다른 설정파일과 개발 환경을 구축할 때 사용된다.
+      > 주로 로컬, 개발서버, 운영서버를 나누어 배포하여야 하는 설정 등이 존재할텐데,
+      > 이를 각각 profile로 등록해서 배포 시마다 profile 값만 변경해주면서 패키징하게 되면
+      > 설정파일 및 개발환경들이 세팅한 대로 묶여진다.
+      > maven의 package 명령어를 통해 war 등으로 묶을 때 profile에 기술한 id를 함께 작성하면,
+      > 설정한 방식으로 빌드하여 배포가 가능하다. 
+      
+     
 ## Gradle  
    
    
