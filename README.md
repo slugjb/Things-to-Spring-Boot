@@ -451,9 +451,17 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
  
     
     * Gradle
-      > 위의 Ant와 Maven이 가진 장점을 모아 만들었다. 의존성 관리를 위한 다양한 방법을 제공하고,
-      > 빌드 스크립트를 XML 언어가 아닌 JVM에서 동작하는 스크립트 언어 'Groovy'기반의
-      > DSL(Domain Specific Language)를 사용한다.
+  > 위의 Ant와 Maven이 가진 장점을 모아 만들었다. 의존성 관리를 위한 다양한 방법을 제공하고,
+  > 빌드 스크립트를 XML 언어가 아닌 JVM에서 동작하는 스크립트 언어 'Groovy'기반의
+  > DSL(Domain Specific Language)를 사용한다. 그루비는 자바 문법과 유사하여 자바 개발자가
+  > 쉽게 익힐 수 있는 장점이 있으며, Gradle Wrapper를 이용하면 Gradle이 설치되지 않은
+  > 시스템에서도 프로젝트를 빌드할 수 있다.
+  > 심지어 Maven의 pom.xml을 Gradle 용으로 변환할 수 있으며 Maven의 중앙 저장소도 지원하기 때문에
+  > 라이브러리를 모두 그대로 가져가 사용할 수 있다.
+
+
+     
+      
    
    
    
