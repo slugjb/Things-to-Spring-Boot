@@ -396,16 +396,14 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
 
              repository에 존재하지 않는다. 해당 범위를 사용하는 경우에는 dependency 설정에
              
-             systemPath를 추가해서 작성해야 한다.
-             
-             (어느 경로에 JAR 파일을 둬야 하는지 지정해줘야하 한다.
+             systemPath를 추가해서 작성해야 한다 - 어느 경로에 JAR 파일을 둬야 하는지 지정해줘야 한다.
              
              ${java.home}/lib 등과 같이 기술한다.
              
    * optional
       * 해당 프로젝트가 다른 프로젝트에 의존성을 가진 경우에 사용할지 여부를 선택해준다.
       * A프로젝트에서 B프로젝트를 참조하여 사용한다고 했을 때 B에서 의존성으로 포함한
-      * 
+       
          dependency의 optional을 true로 주면, A 프로젝트에서는 해당 라이브러리를 참조하지 않는다.
 
      
@@ -430,7 +428,7 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
       > 설정한 방식으로 빌드하여 배포가 가능하다. 
       
      
-## Gradle  
+## Gradle  * https://github.com/gradle 참고링크
    
    
    
