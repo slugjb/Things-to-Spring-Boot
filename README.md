@@ -193,10 +193,17 @@ http://192.168.0.1:8080/bbb/ddd
 >@ResponseBody 가 붙은 파라미터에는 HTTP 요청의 분문 body 부분이 그대로 전달된다.
 >RequestMappingHandlerAdpter 에는 HttpMessageConverter 타입의 메세지 변환기가 여러개 등록되어 있다.
 
-
+## Autowired `보충필요`
+  필요한 의존 객체의 타입에 해당하는 빈을 찾아 주입한다.
+  
+   * 생성자
+   * setter
+   * 필드
+  
+  Autowired는 기본값이 ture이기 때문에 의존성 주입을 해야할 대상을 찾이 못한다면 애플리케이션 구동에 실패한다.
 
 ## Spring Boot Application
-## Autowired
+
 ## RequiredArgsConstructor
 ## POM -> Gradle
 ***
