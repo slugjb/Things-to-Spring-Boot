@@ -528,7 +528,6 @@ org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration,\
 > 또한 각 Bean의 생성 우선순위 등 여러 다른 설정들도 포함한다
 
 위와 같은 과정을 거치기 때문에 @SpringBootApplication Annotation 하나로
-
 Spring Boot Application을 실행할 수 있게 된다.
 
 
