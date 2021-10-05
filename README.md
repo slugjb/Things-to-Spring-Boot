@@ -201,6 +201,16 @@ http://192.168.0.1:8080/bbb/ddd
    * 필드
   
   Autowired는 기본값이 ture이기 때문에 의존성 주입을 해야할 대상을 찾이 못한다면 애플리케이션 구동에 실패한다.
+  
+ ### Constructor Dependency Injection
+   생성자 주입은 생성자에 의존성 주입을 받고자 하는 field를 나열하는 방법으로,
+   권고되는 방법 중 하나이다.
+   
+    * 장점
+      * 필수적으로 사용해야 하는 레퍼런스 없이는 인스턴스를 만들지 못하도록 강제한다.
+      * Spring 4.3 이상부터는 생성자가 하나인 경우 @Autowired를 사용하지 않아도 된다.
+      * 
+   
 
 ## Spring Boot Application
 
