@@ -103,11 +103,11 @@ public String method5(@RequestParam int id) { ... }
     
  * @RequestParam 을 사용했다면 해당 파라미터가 반드시 있어야 한다. 없다면 HTTP 400 - Bad Request 가 발생한다.
   
-  파라미터가 필수가 아니라 선택적으로 제공하게 하려면, required 엘리먼트를 false 로 설정해 주면 된다.
+     파라미터가 필수가 아니라 선택적으로 제공하게 하려면, required 엘리먼트를 false 로 설정해 주면 된다.
+   
+     요청 파라미터가 존재하지 않을 때 사용할 디폴트 값도 지정할 수 있다.
   
-  요청 파라미터가 존재하지 않을 때 사용할 디폴트 값도 지정할 수 있다.
-  
-  method4() 는 required 와 defaultValue 엘리먼트를 설정한 예시이다.
+     method4() 는 required 와 defaultValue 엘리먼트를 설정한 예시이다.
 
  * method5() 는 메소드 파라미터의 이름과 요청 파라미터의 이름이 일치하기 때문에 @RequestParam 의 이름 엘리먼트를 생략한 예시이다.
 
