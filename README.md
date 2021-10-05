@@ -249,7 +249,7 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
      
     
  ### Setter Dependency Injection
-   setter 메소드에 @Autowired annotation을 선언하여 주입받는 방법이다.
+   setter 메소드에 `@Autowired annotation`을 선언하여 주입받는 방법이다.
    
       - 메소드 이름으르 setter 대신에 다른 걸로 하여도 주입은 가능하지만 좋은 방법은 아니다.
    
@@ -312,7 +312,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
  ### 정리
    > groupId는 프로젝트의 큰 틀이고,
    > artifactId는 프로젝트의 각 기능들이다
-   > 예를 들어 지하철 관련 프로젝트르르 개발한다고 한다면,
+   > 예를 들어 지하철 관련 프로젝트를 개발한다고 한다면,
+   > 
    > groupId는 지하철 노선 전체를 뜻하고, artifactId은 1호선, 2호선 등을 말한다
    
 ```
