@@ -78,7 +78,7 @@ public String view(@PathVariable("id") int id) {
   > 그렇기 때문에 반드시 필요한 변수가 아니라면 required의 값을 false로 설정가능하며, 해당 Parameter를
   > 사용하지 않고 요청을 보낼 경우에 default로 받을 값을 defaultValue 옵션을 통해 설정할 수도 있다.
 
-  * 가져올 요청 파라미터의 이름을 @RequestParam 어노테애션의 기본 값으로 지정해주면 된다.
+  * 가져올 요청 파라미터의 이름을 @RequestParam 어노테이션의 기본 값으로 지정해주면 된다.
   * 요청 파라미터의 값은 메소드 파라미터의 타입에 따라 적절히 변환 된다.
 
 ```
@@ -152,7 +152,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
    
 
 ## @RequestBody / @ResponseBody
-     ![image](https://user-images.githubusercontent.com/64000158/135939785-4cb3b016-5073-403d-90eb-7841a5a6f2a5.png)  
+![image](https://user-images.githubusercontent.com/64000158/135939785-4cb3b016-5073-403d-90eb-7841a5a6f2a5.png)
+
 
  클라이언트 -> 서버 = request 메시지  / 서버 -> 클라이언트 = response 메시지
  
