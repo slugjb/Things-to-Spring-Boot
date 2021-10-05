@@ -55,12 +55,32 @@ public ModelAndView getUserByEmail(@PathVariable("email") String email) {}
            .을 포함하여 뒤가 잘려서 들어온다.
 
 ## @RequestParam
+  > 1개의 요청 파라미터를 받기 위해서 사용한다. @RequestParam은 필수 여부가 true이기 때문에, 기본적으로
+  > 반드시 해당 파라미터가 전달되어야 한다. 만약 전송되지 않으면 400 Error을 유발하게 된다. 
+  > 그렇기 때문에 반드시 필요한 변수가 아니라면 required의 값을 false로 설정가능하며, 해당 Parameter를
+  > 사용하지 않고 요청을 보낼 경우에 default로 받을 값을 defaultValue 옵션을 통해 설정할 수도 있다.
 
 
 RequestParam
 http://192.168.0.1:8080?aaa=bbb&ccc=ddd
 PathVariable
 http://192.168.0.1:8080/bbb/ddd
+
+## ModelAttribute
+   > 클라이언트가 전송하는 multipart/form-data 형태의 HTTP Body 내용과 HTTP 파라미터들을 Setter를 통해
+   > 1대1로 객체에 바인딩하기 위해 사용된다. @ModelAttribute에는 매핑시키는 파라미터의 타입이 객체의 타입과
+   > 일치하는지를 포함한 다양한 검증(Validiation) 작업이 추가적으로 진행된다. 예를 들어 게시물의 번호를
+   > 저장하는 int형 index 변수에 "1번" 이라는 String형을 넣으려고 한다면, BindException이 발생하게 된다. 
+   > 즉, Json이나 XML과 같은 형태의 데이터를 MessageConverter를 통해 변환시키는 @RequestBody와 달리,
+   > @ModelAttribute는 multipart/form-data 형태의 HTTP Body와 HTTP 파라미터들을 매핑시킨다는 차이가 있다.
+
+   * 변환이 아닌 바인딩을 하므로, 변수들의 Setter함수가 없으면 변수들이 저장되지 않는다.
+
+  > @ModelAttribute 어노테이션을 활용해서 특정 Parameter만을 받아올 수도 있다.
+  > {writer:'slug', contents: 'hi i'm slug'}의 형태로 데이터를 전송했다고 하면, 컨트롤러에서는
+  > @ModelAttribute('writer') String writer의 형태를 활용하여 writer 변수의 'slug' 만을 바인딩시켜 받아올 수 있다
+
+   
 
 ## @RequestBody / @ResponseBody
      ![image](https://user-images.githubusercontent.com/64000158/135939785-4cb3b016-5073-403d-90eb-7841a5a6f2a5.png)  
@@ -77,7 +97,12 @@ http://192.168.0.1:8080/bbb/ddd
    * Http 요청의 본분(body)이 그대로 전달된다.
    * 일반적인 GET/POST의 요청 파라미터라면 @RequestBody를 사용할 일이 없다.
    * xml이나 json기반의 메세지를 사용하는 요청의 경우에는 이 방법이 매우 유용하다
-   * HTTP 요청의 바디내용을 통째로 자바 객체로 변환해서 매핑된 메소드 파라미터로 전달해준다.
+   > 클라이언트가 전송하는 Json(application/json)형태의 HTTP Body 내용을 Java Object로 변환시켜주는 역할을 한다.
+   > 그렇기 때문에 Body가 존재하지 않는 Get 메소드에 @RequestBody를 활용하려고 한다면 에러가 발생하게 된다.
+   > @RequesetBody로 받는 데이터는 Spring에서 관리하는 MessageConverter들 중 하나인
+   > MappingJackson2HttpMessageonverter를 통해 Java객체로 변환된다.
+   > Spring은 메세지를 변환하는 과정에서 객체의 기본 생성자를 통해 객체를 생성하고, Reflection을 사용해
+   > 값을 할당하기 때문에, @RequestBody에는 Setter가 필요가 없다.
 
  * @ResponseBody   `보충필요`
    * 자바 객체를 HTTP요청의 바디내용으로 매핑하여 클라이언트로 전송한다.
@@ -92,7 +117,7 @@ http://192.168.0.1:8080/bbb/ddd
    > 어노테이션을 명시해주지 않아도, HTTP 응답데이터(body)에 자바 객체로 매핑되어 전달된다.
    > @Controller인 경우에는 body를 자바 객체로 받기 위해서는 @ResponseBody 어노테이션을 반드시 명시해주어야한다.
 
-  ** 정리
+  ## 정리
   > 클라이언트에서 서버로 필요한 데이터를 요청하기 위해 JSON 데이터를 요청 본문에 담아서 서버로 보내면,
   > 서버에서는 @RequestBody 어노테이션을 사용하여 HTTP 요청 본문에 담긴 값들을 자바객체로 변환시켜, 객체에 저장한다.
 
