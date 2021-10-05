@@ -259,6 +259,62 @@ http://192.168.0.1:8080/bbb/ddd
     
     
     
+    
+    
+## POM( Project Object Model)
+   POM은 프로젝트의 구조와 내용을 설명하고 있으며 pom.mxl 파일에 프로젝트 관리 및
+   빌드에 필요한 환경 설정, 의존성 관리 등의 정보들을 기술합니다.
+   
+   
+   * 프로젝트의 세부 메타데이터 정보를 포함한다.
+      * 버전 미치 설정 관리, 빌드 환경, 라이브러리 저장소 및 의존성 등등
+
+
+최소한의 POM 구성
+```
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.mycompany.app</groupId>
+   <artifactId>my-app</artifactId>
+   <version>1</version>
+</project>
+```
+  * project root
+  * modelVersion - 4.0.0 으로 설정
+  * groupId - 프로젝트 그룹 ID
+     * 모든 프로젝트 중에서 해당 프로젝트를 식별하게 해주는 식별자
+     * groupId는 Java의 패키지 이름 규칙을 따라야 한다. 제어하는 도메인 이름의 반대로 시작한다.
+
+       ex) org.apache.maven, org.apache.commons 
+     * 프로젝트가 다중 모듈인 경우 부모의 groupId에 새 식별자를 추가해 사용한다.
+    
+       ex) org.apache.maven, org.apache.maven.plugins, org.apache.maven.reporting
+  * artifactID - artifact(프로젝트) Id
+     * 버전 없는 jar파일의 이름
+     * 특수 문자를 사용하지 않고 소문자로만 작성한다.
+     * third party jar 파일인 경우면, 할당된 이름을 사용해야 한다.
+  * version - 명시된 그룹의 artifact 버전
+     * 배포를 하려면 숫자와 점으로 구성된 일반적인 버전(1.0, 1.1, 1.2)인 형태를 사용한다.
+     * SNAPSHOT(nightly) 빌드와 관련된 날짜 버전은 사용하지 않는다.
+     * third party artifacty 이라면, 여기서 준 버전 넘버를 사용한다.
+     
+        ex) 2.0, 2.0.1, 1.3.1
+
+ 위에 정의한 POM은 메이븐이 허용한 최소값이다. 모두 필수 필드이지만, groupId, artifactId, verson은
+ 상위 항목에서 상속된 경우 명시적으로 정의할 필요가 없다. 
+ 
+ ### 정리
+   > groupId는 프로젝트의 큰 틀이고,
+   > artifactId는 프로젝트의 각 기능들이다
+   > 예를 들어 지하철 관련 프로젝트르르 개발한다고 한다면,
+   > groupId는 지하철 노선 전체를 뜻하고, artifactId은 1호선, 2호선 등을 말한다
+
+
+## Gradle  
+   
+   
+   
+   
    
 
 ## Spring Boot Application
@@ -268,10 +324,6 @@ http://192.168.0.1:8080/bbb/ddd
 
 ## RequiredArgsConstructor
 
-
-
-
-## POM -> Gradle
 
 
 
