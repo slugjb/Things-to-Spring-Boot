@@ -21,7 +21,7 @@
   * 멱등(idempotent)이다
   
   get을 통한 요청은 url 주소 끝에 파라미터로 포함되어 전송되며, 이를 query string라고 부른다.     
-  ex) www.ex.com/sample?name=value?name2=value2
+  ex) `www.ex.com/sample?name=value?name2=value2`
 
 * POST
   * 캐시 불가
@@ -49,8 +49,8 @@
 public ModelAndView getUserByEmail(@PathVariable("email") String email) {}
 ```
   ※ 주의 : null이나 공백값이 들어가는 parameter라면 적용하지 말것!  
-           Spring에서 @PathVariable를 사용하여 값을 넘겨받을 때에 . 이 포함되어 있으면,  
-           .을 포함하여 뒤가 잘려서 들어온다.
+           Spring에서 @PathVariable를 사용하여 값을 넘겨받을 때에
+           . 이 포함되어 있으면, .을 포함하여 뒤가 잘려서 들어온다.
            
  ```
  @RequestMapping("/user/view/{id}")
@@ -58,7 +58,7 @@ public String view(@PathVariable("id") int id) {
     ...
 }
 ```
- > URL의 중괄호({}) 에는 패스 변수를 넣는다. 이 이름을 @PathVariable 애노테이션의  
+ > URL의 중괄호({}) 에는 패스 변수를 넣는다. 이 이름을 @PathVariable 어노테이션의  
  > 값으로 넣어서 메소드 파라미터에 부여해 주면 된다. /user/view/10 이라는 URL 이라면,  
  > id 파라미터에 10이라는 값이 들어온다. 파라미터의 타입은 URL 의 내용이 적절히  
  > 변환될 수 있는 것을 사용해야 한다. int 타입을 사용할 경우에는 반드시 해당 패스 변수  
@@ -149,7 +149,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
   > 
   > {writer:'slug', contents: 'hi i'm slug'}의 형태로 데이터를 전송했다고 하면, 컨트롤러에서는
   > 
-  > @ModelAttribute('writer') String writer의 형태를 활용하여 writer 변수의 'slug' 만을 바인딩시켜 받아올 수 있다
+  > @ModelAttribute('writer') String writer의 형태를 활용하여 writer 변수의  
+  > 'slug' 만을 바인딩시켜 받아올 수 있다
 
    
    
@@ -197,7 +198,7 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
    * @ResponseBody 어노테이션을 사용하면 HTTP요청 body를 자바 객체로 전달받을 수 있다.
 
   * @RestController `보충필요`
-   > @Controller와는 다르게 @RestController는 리턴값에 자동으로 @ResponseBody가
+   > @Controller와는 다르게 @RestController는 리턴값에 자동으로 @ResponseBody가  
    > 붙게 되어 별도의 어노테이션을 명시해주지 않아도, HTTP 응답데이터(body)에  
    > 자바 객체로 매핑되어 전달된다.
    >    
