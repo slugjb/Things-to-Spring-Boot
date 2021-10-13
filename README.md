@@ -31,8 +31,7 @@
   * http 메시지에 body 있음
   * 멱등(idempotent)이 아니다
 
-  post는 전송할 데이터를 http 메시지 body 부분에 담아서 서버로 보낸다.
-  
+  post는 전송할 데이터를 http 메시지 body 부분에 담아서 서버로 보낸다.    
   body의 타입은 Content-Type 헤더에 따라 결정 된다.
 
 
@@ -70,8 +69,8 @@ public String view(@PathVariable("id") int id) {
 
 
 ## @RequestParam
-  > 1개의 요청 파라미터를 받기 위해서 사용한다. @RequestParam은 필수 여부가 true이기 때문에, 기본적으로  
-  > 반드시 해당 파라미터가 전달되어야 한다. 만약 전송되지 않으면 400 Error을 유발하게 된다.   
+  > 1개의 요청 파라미터를 받기 위해서 사용한다. @RequestParam은 필수 여부가 true이기 때문에,
+  > 기본적으로 반드시 해당 파라미터가 전달되어야 한다. 만약 전송되지 않으면 400 Error을 유발하게 된다.  
   > 그렇기 때문에 반드시 필요한 변수가 아니라면 required의 값을 false로 설정가능하며, 해당 Parameter를  
   > 사용하지 않고 요청을 보낼 경우에 default로 받을 값을 defaultValue 옵션을 통해 설정할 수도 있다.
 
@@ -93,21 +92,22 @@ public String method4(
 public String method5(@RequestParam int id) { ... }
 
 ```
- * method1() 의 선언은 id 요청 파라미터를 int 타입으로 변환해서 메소드의 id 파라미터에 넣어준다.
+ * `method1()` 의 선언은 id 요청 파라미터를 int 타입으로 변환해서 메소드의 id 파라미터에 넣어준다.
 
- * @RequestParam 은 method2() 와 같이 하나 이상의 파라미터에 적용할 수 있다.
+ * @RequestParam 은 `method2()` 와 같이 하나 이상의 파라미터에 적용할 수 있다.
  
  * 스프링의 내장 변환기가 다룰 수 있는 모든 타입을 지원한다.
     
- * method3() 과 같이 @RequestParam 에 파라미터 이름을 지정하지 않고 Map<String, String> 타입으로   
-   선언하면 모든 요청 파라미터를 담은 맵으로 받을 수 있다. 파라미터 이름은 맵의 키에, 값은 맵의 값에 담겨 전달된다.
+ * `method3()` 과 같이 @RequestParam 에 파라미터 이름을 지정하지 않고,  
+   Map<String, String>타입으로 선언하면 모든 요청 파라미터를 담은 맵으로 받을 수 있다.  
+   파라미터 이름은 맵의 키에, 값은 맵의 값에 담겨 전달된다.
     
- * @RequestParam 을 사용했다면 해당 파라미터가 반드시 있어야 한다. 없다면 HTTP 400 - Bad Request 가 발생한다.    
-    파라미터가 필수가 아니라 선택적으로 제공하게 하려면, required 엘리먼트를 false 로 설정해 주면 된다.     
-    요청 파라미터가 존재하지 않을 때 사용할 디폴트 값도 지정할 수 있다.    
-    method4() 는 required 와 defaultValue 엘리먼트를 설정한 예시이다.
+ * @RequestParam 을 사용했다면 해당 파라미터가 반드시 있어야 한다. 없다면 HTTP 400 - Bad Request 가 발생한다.  
+    파라미터가 필수가 아니라 선택적으로 제공하게 하려면, required 엘리먼트를 false 로 설정해 주면 된다.  
+    요청 파라미터가 존재하지 않을 때 사용할 디폴트 값도 지정할 수 있다.  
+    `method4()` 는 required 와 defaultValue 엘리먼트를 설정한 예시이다.
 
- * method5() 는 메소드 파라미터의 이름과 요청 파라미터의 이름이 일치하기 때문에  
+ * `method5()` 는 메소드 파라미터의 이름과 요청 파라미터의 이름이 일치하기 때문에  
    @RequestParam 의 이름 엘리먼트를 생략한 예시이다.
 
  * String, int 와 같은 단순 타입인 경우는 @RequestParam 을 아예 생략할 수도 있다.    
@@ -125,19 +125,25 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
 
 
 ## ModelAttribute
-   > 클라이언트가 전송하는 multipart/form-data 형태의 HTTP Body 내용과 HTTP 파라미터들을 Setter를 통해
+   > 클라이언트가 전송하는 multipart/form-data 형태의 HTTP Body 내용과
    > 
-   > 1대1로 객체에 바인딩하기 위해 사용된다. @ModelAttribute에는 매핑시키는 파라미터의 타입이 객체의 타입과
+   > HTTP 파라미터들을 Setter를 통해 1대1로 객체에 바인딩하기 위해 사용된다.
    > 
-   > 일치하는지를 포함한 다양한 검증(Validiation) 작업이 추가적으로 진행된다. 예를 들어 게시물의 번호를
+   > @ModelAttribute에는 매핑시키는 파라미터의 타입이 객체의 타입과
+   >  
+   > 일치하는지를 포함한 다양한 검증(Validiation) 작업이 추가적으로 진행된다.
    > 
-   > 저장하는 int형 index 변수에 "1번" 이라는 String형을 넣으려고 한다면, BindException이 발생하게 된다. 
+   > 예를 들어 게시물의 번호를 저장하는 int형 index 변수에 "1번" 이라는
    > 
-   > 즉, Json이나 XML과 같은 형태의 데이터를 MessageConverter를 통해 변환시키는 @RequestBody와 달리,
+   > String형을 넣으려고 한다면, BindException이 발생하게 된다.
    > 
-   > @ModelAttribute는 multipart/form-data 형태의 HTTP Body와 HTTP 파라미터들을 매핑시킨다는 차이가 있다.
+   > 즉, Json이나 XML과 같은 형태의 데이터를 MessageConverter를 통해 변환시키는
+   > 
+   > @RequestBody와 달리, @ModelAttribute는 multipart/form-data 형태의
+   > 
+   >   HTTP Body와 HTTP 파라미터들을 매핑시킨다는 차이가 있다.
 
-   * 변환이 아닌 바인딩을 하므로, 변수들의 Setter함수가 없으면 변수들이 저장되지 않는다.
+* 변환이 아닌 바인딩을 하므로, 변수들의 Setter함수가 없으면 변수들이 저장되지 않는다.
 
   > @ModelAttribute 어노테이션을 활용해서 특정 Parameter만을 받아올 수도 있다.
   > 
@@ -150,20 +156,20 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
    
 
 ## @RequestBody / @ResponseBody
-![image](https://user-images.githubusercontent.com/64000158/135939785-4cb3b016-5073-403d-90eb-7841a5a6f2a5.png)
+   ![image](https://user-images.githubusercontent.com/64000158/135939785-4cb3b016-5073-403d-90eb-7841a5a6f2a5.png)
 
 
  클라이언트 -> 서버 = request 메시지  / 서버 -> 클라이언트 = response 메시지
  
- >웹에서 화면 전환(refresh) 없이 이루어지는 동작들은 대부분 비동기 통신으로 이루어진다.
+ > 웹에서 화면 전환(refresh) 없이 이루어지는 동작들은 대부분 비동기 통신으로 이루어진다.
  >
- >비동기 통신을 하기 위해서는 클라이언트에서 서버로 혹은 서버에서 클라이언트로 요청,응답 메세지를 
+ > 비동기 통신을 하기 위해서는 클라이언트에서 서버로 혹은 서버에서 클라이언트로 요청,응답 메세지를 
  >
- >보낼 때 본문에 데이터를 담아서 보내야하는데, 이 본문이 바로 `body`이다.
+ > 보낼 때 본문에 데이터를 담아서 보내야하는데, 이 본문이 바로 `body`이다.
  >
- >본문에 담기는 데이터 형식은 여러가지가 있지만, 가장 대표적으로 사용되는것이 `JSON`이다
+ > 본문에 담기는 데이터 형식은 여러가지가 있지만, 가장 대표적으로 사용되는것이 `JSON`이다
  >
- >즉, 비동기식 클라-서버 통신을 위해 JSON 형식의 데이터를 주고받는 것이다.
+ > 즉, 비동기식 클라-서버 통신을 위해 JSON 형식의 데이터를 주고받는 것이다.
 
  * @RequestBody
    * Http 요청의 본분(body)이 그대로 전달된다.
@@ -171,48 +177,49 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
    * xml이나 json기반의 메세지를 사용하는 요청의 경우에는 이 방법이 매우 유용하다
 
 
-   > 클라이언트가 전송하는 Json(application/json)형태의 HTTP Body 내용을 Java Object로 변환시켜주는 역할을 한다.
-   > 
-   > 그렇기 때문에 Body가 존재하지 않는 Get 메소드에 @RequestBody를 활용하려고 한다면 에러가 발생하게 된다.
-   > 
-   > @RequesetBody로 받는 데이터는 Spring에서 관리하는 MessageConverter들 중 하나인
-   > 
-   > MappingJackson2HttpMessageonverter를 통해 Java객체로 변환된다.
-   > 
-   > Spring은 메세지를 변환하는 과정에서 객체의 기본 생성자를 통해 객체를 생성하고, Reflection을 사용해
-   > 
-   > 값을 할당하기 때문에, @RequestBody에는 Setter가 필요가 없다.
+> 클라이언트가 전송하는 Json(application/json)형태의 HTTP Body  
+> 내용을 Java Object로 변환시켜주는 역할을 한다.
+> 
+> 그렇기 때문에 Body가 존재하지 않는 Get 메소드에 @RequestBody를  
+> 활용하려고 한다면 에러가 발생하게 된다.
+> 
+> @RequesetBody로 받는 데이터는 Spring에서 관리하는 MessageConverter들 중 하나인  
+> MappingJackson2HttpMessageonverter를 통해 Java객체로 변환된다.
+> 
+> Spring은 메세지를 변환하는 과정에서 객체의 기본 생성자를 통해 객체를 생성하고,  
+> Reflection을 사용해 값을 할당하기 때문에, @RequestBody에는 Setter가 필요가 없다.
 
  * @ResponseBody   `보충필요`
    * 자바 객체를 HTTP요청의 바디내용으로 매핑하여 클라이언트로 전송한다.
    * @ResponseBody가 붙은 파라미터가 있으면, HTTP요청의 미디어 타입과 파라미터의 타입을 확인한다.
-   * 메세지 변환기 중에서 해당 미디어 타입과 파라미터 타입을 처리할 수 있다면, HTTP요청의 본문 부분을
-
-     통째로 변환해서 지정된 메소드 파라미터로 전달해준다.
+   * 메세지 변환기 중에서 해당 미디어 타입과 파라미터 타입을 처리할 수 있다면,
+     HTTP요청의 본문 부분을 통째로 변환해서 지정된 메소드 파라미터로 전달해준다.  
    * @ResponseBody 어노테이션을 사용하면 HTTP요청 body를 자바 객체로 전달받을 수 있다.
 
   * @RestController `보충필요`
-   > @Controller와는 다르게 @RestController는 리턴값에 자동으로 @ResponseBody가 붙게 되어 별도의
-   > 
-   > 어노테이션을 명시해주지 않아도, HTTP 응답데이터(body)에 자바 객체로 매핑되어 전달된다.
-   > 
-   > @Controller인 경우에는 body를 자바 객체로 받기 위해서는 @ResponseBody 어노테이션을 반드시 명시해주어야한다.
+   > @Controller와는 다르게 @RestController는 리턴값에 자동으로 @ResponseBody가
+   > 붙게 되어 별도의 어노테이션을 명시해주지 않아도, HTTP 응답데이터(body)에  
+   > 자바 객체로 매핑되어 전달된다.
+   >    
+   > @Controller인 경우에는 body를 자바 객체로 받기 위해서는  
+   > @ResponseBody 어노테이션을 반드시 명시해주어야한다.
 
   ## 정리
-  > 클라이언트에서 서버로 필요한 데이터를 요청하기 위해 JSON 데이터를 요청 본문에 담아서 서버로 보내면,
+  > 클라이언트에서 서버로 필요한 데이터를 요청하기 위해 JSON 데이터를  
+  > 요청 본문에 담아서 서버로 보내면, 서버에서는 @RequestBody 어노테이션을  
+  > 사용하여 HTTP 요청 본문에 담긴 값들을 자바객체로 변환시켜, 객체에 저장한다.
   > 
-  > 서버에서는 @RequestBody 어노테이션을 사용하여 HTTP 요청 본문에 담긴 값들을 자바객체로 변환시켜, 객체에 저장한다.
-  > 
-  > 서버에서 클라이언트로 응답 데이터를 전송하기 위해 @ResponseBody 어노테이션을 사용하여 자바 객체롤 HTTP
-  > 
-  > 응답 본문의 객체로 변환하여 클라이언트로 전송한다.
+  > 서버에서 클라이언트로 응답 데이터를 전송하기 위해 @ResponseBody 어노테이션을  
+  > 사용하여 자바 객체를 HTTP 응답 본문의 객체로 변환하여 클라이언트로 전송한다.
  
      
 
 ***
-보충 필요
-> @RequestBody를 통해서 자바객체로 conversion을 하는데, 이때 HttpMessageConverter를 사용한다.  
-> @ResponseBody 가 붙은 파라미터에는 HTTP 요청의 분문 body 부분이 그대로 전달된다.  
+`보충 필요`
+> @RequestBody를 통해서 자바객체로 conversion을 하는데, 이때 HttpMessageConverter를 사용한다.
+> 
+> @ResponseBody 가 붙은 파라미터에는 HTTP 요청의 분문 body 부분이 그대로 전달된다.
+> 
 > RequestMappingHandlerAdpter 에는 HttpMessageConverter 타입의 메세지 변환기가 여러개 등록되어 있다.
 
 
@@ -240,8 +247,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
 
    * 단점
      * 어쩔 수 없는 순환 참조는 생성자 주입으로 해결하기 어렵다.            
-        이러한 경우에는 다른 주입 방법을 사용한다.          
-        가급적이면 순환 참조가 발생하지 않도록 하는 것이 중요하다.
+       이러한 경우에는 다른 주입 방법을 사용한다.          
+       가급적이면 순환 참조가 발생하지 않도록 하는 것이 중요하다.
 
 
  ### Field Dependency Injection
@@ -361,10 +368,10 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
 > 중요한 사항에 대해 따로 정의하여 보기 쉽게 정리하려는 목적도 있다.
 
 * dependencies(필수사항)
-> pom.xml의 핵심이라고 볼 수 있는 의존성을 정의하는 부분으로,
+> pom.xml의 핵심이라고 볼 수 있는 의존성을 정의하는 부분으로,  
 > 라이브러리를 불러오는 부분이다.
 > 
-> maven을 통해 불러온 라이브러리들은 Java Build Path에서 Maven Dependencies
+> maven을 통해 불러온 라이브러리들은 Java Build Path에서 Maven Dependencies  
 > 하위 목록으로 들어가며 별도 설정이 불가하고, pom.xml을 통해서만  
 > 추가/삭제/버전 변경 등이 가능하다.
 > 
@@ -392,8 +399,7 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
             * 런타임과 테스트 경로에서는 존재하지만, 컴파일 클래스 경로에는 존재하지 않는다.
          * test
             * 해당 scope를 사용하는 경우는, 테스트 시에만 해당 라이브러리를 사용하겠다는 의미이다.
-            * 응용 프로그램의 정상적인 사용 시에는 필요 없다는 의미로, 테스트 컴파일과
-            
+            * 응용 프로그램의 정상적인 사용 시에는 필요 없다는 의미로, 테스트 컴파일과              
               실행 단계에서만 사용하며, 종속 된 다른 프로젝트에는 영향을 미치지 않는다.
               
          * system
@@ -414,8 +420,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
 
    * distributionManagement(선택사항)
       * artifact가 배포될 repository 정보와 설정을 한다.
-      * 대체적으로 가상화 등 망분리 환경에서 외부 인터넷 연결이 불가할 때나 내부용  
-        repository를 별도로 두어 사용하고자 할 때 쓴다.
+      * 대체적으로 가상화 등 망분리 환경에서 외부 인터넷 연결이 불가할 때나  
+        내부용 repository를 별도로 두어 사용하고자 할 때 쓴다.
          
          
    * profiles(선택사항)
@@ -424,7 +430,7 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
       > 이를 각각 profile로 등록해서 배포 시마다 profile 값만 변경해주면서 패키징하게 되면,  
       > 설정파일 및 개발환경들이 세팅한 대로 묶여진다.  
       > 
-      > maven의 package 명령어를 통해 war 등으로 묶을 때 profile에 기술한 id를 함께 작성하면,
+      > maven의 package 명령어를 통해 war 등으로 묶을 때 profile에 기술한 id를 함께 작성하면,  
       > 설정한 방식으로 빌드하여 배포가 가능하다. 
       
      
@@ -456,8 +462,8 @@ PathVariable - http://192.168.0.1:8080/bbb/ddd
   > 쉽게 익힐 수 있는 장점이 있으며, Gradle Wrapper를 이용하면 Gradle이 설치되지 않은  
   > 시스템에서도 프로젝트를 빌드할 수 있다.
   > 
-  > 심지어 Maven의 pom.xml을 Gradle 용으로 변환할 수 있으며 Maven의 중앙 저장소도 지원하기 때문에  
-  > 라이브러리를 모두 그대로 가져가 사용할 수 있다.  
+  > 심지어 Maven의 pom.xml을 Gradle 용으로 변환할 수 있으며 Maven의  
+  > 중앙 저장소도 지원하기 때문에 라이브러리를 모두 그대로 가져가 사용할 수 있다.  
 
 
     
@@ -503,7 +509,7 @@ public @interface SpringBootApplication {
 3가지의 역할을 수행한다. 또한 내부적으로 2단계에 걸쳐서 Bean을 등록한다.
 * @ComponentScan
    * @Component @Configuration @Repository @Service @Controller @RestController
-   * 해당 어노테이션이 선언된 하위 패키지에서 위와 같은 Annotaion으르 찾아서 Bean으로 등록한다.
+   * 해당 어노테이션이 선언된 하위 패키지에서 위와 같은 Annotaion을 찾아서 Bean으로 등록한다.
 
 * @EnableAutoConfiguration    
     Spring Boot의 의존성 중 하나인 org.springframework.boot:spring-boot-autoconfigure 를 확인해보면,
@@ -518,9 +524,10 @@ org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\
 org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration,\
 ...
 ```
-> 위처럼 org.springframework.boot.autoconfigure.EnableAutoConfiguration라는 Key값이 존재하며,  
-> 하위에 많은 Class를 가지고 있다. 또한 해당 Class들은 상단에 @Configuration이라는 Annotation을 가지고 있다.  
-> (@Configuration은 Bean을 등록하는 Java 설정파일) 이러한 키값을 통하여 명시된 많은 Class들이 AutoConfiguration의 대상이 된다.
+> 위처럼 org.springframework.boot.autoconfigure.EnableAutoConfiguration라는  
+> Key값이 존재하며, 하위에 많은 Class를 가지고 있다. 또한 해당 Class들은 상단에  
+> @Configuration이라는 Annotation을 가지고 있다. (@Configuration은 Bean을 등록하는 Java 설정파일)  
+> 이러한 키값을 통하여 명시된 많은 Class들이 AutoConfiguration의 대상이 된다.
 
 > 하지만 실제로 모든 Class들이 다 Bean으로 등록되진 않는다. 실제로 해당 클래스들을 확인해 보면  
 > @ConditionalOnXxx… 와 같은 형태로 Condition에 적합한 경우 생성하고 생성하지 않게 설정되어 있다.  
